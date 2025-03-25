@@ -25,6 +25,7 @@ public class UserController {
     public String login(UserRequest.LoginDTO loginDTO) {
         User sessionUser = userService.로그인(loginDTO);
         session.setAttribute("sessionUser", sessionUser); // stateful req에 저장못함, 세션에 저장(삭제될수도)
+
         return "redirect:/";
     }
 
