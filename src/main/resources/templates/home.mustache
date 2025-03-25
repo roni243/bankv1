@@ -5,6 +5,12 @@
         <h1>메타코딩 은행에 오신것을 환영합니다.</h1>
 
 
+        <h3>
+            {{#sessionUser}}
+                {{sessionUser.fullname}}님
+            {{/sessionUser}}
+        </h3>
+
     </div>
 </div>
 {{>layout/footer}}
