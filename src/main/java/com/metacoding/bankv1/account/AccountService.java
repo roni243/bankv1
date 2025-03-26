@@ -52,7 +52,7 @@ public class AccountService {
 
 
         //6. Account Update 입금계좌 (핵심로직) - 위에서 둘 다 조회됨
-        int withdrawBalance = depositAccount.getBalance();
+        int withdrawBalance = withdrawAccount.getBalance();
         withdrawBalance = withdrawBalance + transferDTO.getAmount();
         accountRepository.updateByNumber(withdrawBalance, withdrawAccount.getPassword(), withdrawAccount.getNumber());
         //dto꺼 아님, 위험함 - 자기것
@@ -65,5 +65,9 @@ public class AccountService {
         historyRepository.save(transferDTO.getWithdrawNumber(), transferDTO.getDepositNumber(), transferDTO.getAmount(), withdrawBalance);
 
 
+    }
+
+    public void 계좌상세보기(int number, String type, Integer id) {
+        
     }
 }
