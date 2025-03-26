@@ -1,6 +1,7 @@
 package com.metacoding.bankv1.account;
 
 import com.metacoding.bankv1.account.history.HistoryRepository;
+import com.metacoding.bankv1.user.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -62,12 +63,27 @@ public class AccountService {
         accountRepository.updateByNumber(depositBalance, depositAccount.getPassword(), depositAccount.getNumber());
 
         //7. History Save (핵심로직) - 신뢰할 수 있는 데이터 위에서 검증
-        historyRepository.save(transferDTO.getWithdrawNumber(), transferDTO.getDepositNumber(), transferDTO.getAmount(), withdrawBalance);
+        historyRepository.save(transferDTO.getWithdrawNumber(), transferDTO.getDepositNumber(), transferDTO.getAmount(), withdrawBalance, depositBalance);
 
 
     }
 
-    public void 계좌상세보기(int number, String type, Integer id) {
-        
+    public void 계좌상세보기(int number, String type, User sessionUser) {
+        //1. 계좌 존재 확인
+        Account account = accountRepository.findByNumber(number);
+        if (account == null) throw new RuntimeException("계좌가 존재하지 않습니다");
+
+        //2. 계좌 주인 확인
+        if (!(account.getUserId().equals(sessionUser.getId()))) {
+            throw new RuntimeException("계좌의 권한이 없습니다.");
+        }
+
+        //3. 조회해서 주면 됨
+        AccountResponse.DetailDTO responseDTO = new AccountResponse.DetailDTO(
+                sessionUser,
+                account,
+                null
+        );
+
     }
 }
