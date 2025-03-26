@@ -7,6 +7,12 @@ import java.util.List;
 
 public class AccountResponse {
 
+    // {{#models.histories}}
+    //{{createdAt}}
+    //{{withdrawNumber}}
+    // {{/models.histories}}
+
+    // 화면이랑 똑같이 생겼다!
     @Data
     public static class DetailDTO {
         private String fullname; // 세션의값
