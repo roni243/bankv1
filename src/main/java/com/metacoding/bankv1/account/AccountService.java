@@ -68,7 +68,7 @@ public class AccountService {
 
     }
 
-    public void 계좌상세보기(int number, String type, User sessionUser) {
+    public List<AccountResponse.DetailDTO> 계좌상세보기(int number, String type, User sessionUser) {
         //1. 계좌 존재 확인
         Account account = accountRepository.findByNumber(number);
         if (account == null) throw new RuntimeException("계좌가 존재하지 않습니다");
@@ -79,6 +79,10 @@ public class AccountService {
         }
 
 //        //3. 조회해서 주면 됨
+        List<AccountResponse.DetailDTO> detailList = accountRepository.findAllByNumber(number, type);
+        return detailList;
+
+
 //        AccountResponse.DetailDTO responseDTO = new AccountResponse.DetailDTO(
 //                sessionUser,
 //                account,

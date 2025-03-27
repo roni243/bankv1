@@ -28,7 +28,8 @@ public class AccountController {
 
 
         //AccountResponse.DetailDTO detailDTO =
-        accountService.계좌상세보기(number, type, sessionUser);
+        List<AccountResponse.DetailDTO> detailList = accountService.계좌상세보기(number, type, sessionUser);
+        request.setAttribute("models", detailList);
         //request.setAttribute("model", detailDTO);
         return "account/detail";
     }
